@@ -1,0 +1,55 @@
+﻿@model Prueba.Models.Marcas
+
+@{
+    ViewBag.Title = "Actucalizar";
+}
+
+<h2>Editar</h2>
+
+
+@using (Html.BeginForm()) //Inicia formulario de html
+{
+    @Html.AntiForgeryToken() //Token de antifalsificación
+
+    <div class="form-horizontal">
+        <hr />
+        <!-- Muestra los errores de la validacion del formulario -->
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <!-- Oculta el id de la marca traida -->
+        @Html.HiddenFor(model => model.Id_Marca) 
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nombre de la Marca :</label>
+            <div class="col-md-10">
+                <!-- Genera input -->
+                @Html.EditorFor(model => model.Nombre_Marca, new { htmlAttributes = new { @class = "form-control" } })
+                <!-- Muestra un mensaje de error si la validación falla -->
+                @Html.ValidationMessageFor(model => model.Nombre_Marca, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Representante :</label>
+            <div class="col-md-10">
+                <!-- Genera input -->
+                @Html.EditorFor(model => model.Representante, new { htmlAttributes = new { @class = "form-control" } })
+                <!-- Muestra un mensaje de error si la validación falla -->
+                @Html.ValidationMessageFor(model => model.Representante, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Actualizar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Cancelar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

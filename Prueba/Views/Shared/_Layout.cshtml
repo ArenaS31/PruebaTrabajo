@@ -1,0 +1,43 @@
+﻿<!-- Si se trata de ingresar directamente a las paginas sin iniciar sesión esto los devolvera al login -->
+@{
+    if (Session["Usuario"] == null)
+    {
+        Response.Redirect("~/Home/Index");
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary">
+        <div class="container">
+            <!-- Muestra saludo y recupera el usuario por medio de la sesión -->
+            <span class="navbar-text text-white">
+                HOLA @Session["Usuario"]
+            </span>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-end">
+                <ul class="navbar-nav">
+                    <!-- Redirige al controlador Home y ejecuta el Metodo de acción Layout -->
+                    <li>@Html.ActionLink("Cerrar sesión", "Layout", "Home", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

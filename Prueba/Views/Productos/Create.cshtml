@@ -1,0 +1,63 @@
+﻿@model Prueba.Models.Productos
+
+@{
+    ViewBag.Title = "Registro de productos";
+}
+
+<h2>Registro de productos</h2>
+
+
+@using (Html.BeginForm()) //Inicia formulario de html
+{
+    @Html.AntiForgeryToken() //Token de antifalsificación
+
+    <!-- Contenedor de formulario horizontal -->
+    <div class="form-horizontal">
+        <hr />
+        <!-- Muestra los errores de la validacion del formulario -->
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">Nombre del producto :</label>
+            <div class="col-md-10">
+                <!-- Genera input -->
+                @Html.EditorFor(model => model.Nombre_Producto, new { htmlAttributes = new { @class = "form-control" } })
+                <!-- Muestra un mensaje de error si la validación falla -->
+                @Html.ValidationMessageFor(model => model.Nombre_Producto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Categoria :</label>
+            <div class="col-md-10">
+                <!-- Genera input -->
+                @Html.EditorFor(model => model.Categoria, new { htmlAttributes = new { @class = "form-control" } })
+                <!-- Muestra un mensaje de error si la validación falla -->
+                @Html.ValidationMessageFor(model => model.Categoria, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Marca :</label>
+            <div class="col-md-10">
+                <!-- Genera un Drop Down Menu -->
+                @Html.DropDownList("id_marca", null, htmlAttributes: new { @class = "form-control" })
+                <!-- Muestra un mensaje de error si la validación falla -->
+                @Html.ValidationMessageFor(model => model.id_marca, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agregar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

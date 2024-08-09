@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Prueba.Models.Productos>
+
+@{
+    ViewBag.Title = "Productos";
+}
+
+<h2>Tabla de productos</h2>
+
+<p>
+    @Html.ActionLink("Ir a la tabla de marcas", "Index", "Marcas", null, new { @class = "btn btn-primary" })
+</p>
+<hr />
+@using (Html.BeginForm("Index", "Productos", FormMethod.Get))
+{
+    <div class="form-group">
+        <input type="text" name="searchTerm" placeholder="Buscar por nombre de producto o marca" class="form-control" value="@Request.QueryString["searchTerm"]" />
+        <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+    </div>
+}
+<hr />
+
+<!-- Crea formulario de eliminación multiple -->
+@using (Html.BeginForm("EliminarSeleccionados", "Productos", FormMethod.Post))
+{
+    <div>
+        <button type="submit" class="btn btn-danger">Eliminar seleccionados</button>
+    </div>
+
+    <table class="table">
+            <tr>
+                @Html.ActionLink("Ingresar nuevo producto", "Create", null, new { @class = "btn btn-link mr-3" })
+            </tr>
+            <hr />
+            <tr>
+                <th>
+                    <!-- Columna de checkbox para seleccionar todos a la vez -->
+                    <input type="checkbox" id="select-all" />
+                </th>
+                <th>Nombre del producto</th>
+                <th>Categoria</th>
+                <th>Marca</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <!-- Checkbox para cada producto -->
+                        <input type="checkbox" name="productosSeleccionados" value="@item.Id_Producto" />
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Nombre_Producto)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Categoria)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Marcas.Nombre_Marca)</td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id_Producto }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id_Producto })
+                    </td>
+                </tr>
+            }
+    </table>
+}
+
+@section Scripts {
+    <script>
+        // Script para seleccionar o deseleccionar todos los checkboxes
+        document.getElementById("select-all").addEventListener("click", function () {
+            var checkboxes = document.getElementsByName("productosSeleccionados");
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        });
+    </script>
+}

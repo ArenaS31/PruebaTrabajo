@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Prueba.Models.Marcas>
+
+@{
+    ViewBag.Title = "Marcas";
+}
+
+<h2>Tabla de marcas registradas</h2>
+
+<p>
+    @Html.ActionLink("Ir a la tabla de productos", "Index", "Productos", null, new { @class = "btn btn-primary" })
+</p>
+
+<!-- Crea una tabla para almacenar la lista -->
+<table class="table">
+    <tr>
+        @Html.ActionLink("Ingresar nueva marca", "Create", null, new { @class = "btn btn-link mr-3" })
+    </tr>
+    <hr />
+    <!-- Fila de los nombres de encabezado -->
+    <tr>
+        <th>
+            Nombre de la marca
+        </th>
+        <th>
+            Representante
+        </th>
+        <th></th>
+    </tr>
+
+    <!-- Mientras la tabla del modelo tenga datos, se seguira imprimiendo fila por fila en un bucle -->
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre_Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Representante)
+            </td>
+            <td>
+                <!-- Cualquier opción seleccionada enviara el id de la marca a su metodo de acción -->
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id_Marca }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id_Marca })
+            </td>
+        </tr>
+    }
+
+</table>

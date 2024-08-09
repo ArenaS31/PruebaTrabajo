@@ -1,0 +1,51 @@
+﻿@model Prueba.Models.Productos
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar producto</h2>
+
+<h3>¿Estás seguro de esto?</h3>
+<div>
+    <h4>Productos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre del producto :
+        </dt>
+
+        <dd>
+            <!-- Nombre del producto -->
+            @Html.DisplayFor(model => model.Nombre_Producto)
+        </dd>
+
+        <dt>
+            Categoria :
+        </dt>
+
+        <dd>
+            <!-- Categoria -->
+            @Html.DisplayFor(model => model.Categoria)
+        </dd>
+
+        <dt>
+            Marca :
+        </dt>
+
+        <dd>
+            <!-- Marca -->
+            @Html.DisplayFor(model => model.Marcas.Nombre_Marca)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) { //Inicia formulario html
+        @Html.AntiForgeryToken() //Token de antifalsificación
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Cancelar", "Index")
+        </div>
+    }
+</div>
